@@ -1,1 +1,1 @@
-# cordova-brightcove-player
+## Brightcove video player Cordova plugin
