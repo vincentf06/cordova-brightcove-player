@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        id="cordova-brightcove-player" version="0.1.0">
+    <name>CordovaBrightcovePlayer</name>
+    <description>Brightcove video player cordova plugin</description>
+    <author>Vincent Fu</author>
+    <license>Apache 2.0</license>
+    <keywords>cordova,brightcove,videoplayer,player</keywords>
+    <js-module src="www/videoPlayer.js" name="videoPlayer">
+        <clobbers target="videoPlayer" />
+    </js-module>
+    <platform name="ios">
+        <config-file target="config.xml" parent="/*">
+            <feature name="BrightcovePlayer">
+                <param name="ios-package" value="BrightcovePlayer" onload="true"/>
+            </feature>
+        </config-file>
+        <header-file src="src/ios/bridging-header.h" />
+        <source-file src="src/ios/BrightcovePlayer.swift" />
+    </platform>
+</plugin>
