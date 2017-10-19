@@ -17,5 +17,7 @@
         </config-file>
         <header-file src="src/ios/bridging-header.h" />
         <source-file src="src/ios/BrightcovePlayer.swift" />
+        <source-file src="src/ios/PlayerViewController.swift" />
+        <source-file src="src/ios/BrightcovePlayer.storyboard" />
     </platform>
 </plugin>
