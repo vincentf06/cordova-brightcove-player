@@ -5,5 +5,5 @@ exports.play = function(id, success, error) {
 };
 
 exports.init = function(token, success, error) {
-    exec(sucess, error, 'BrightcovePlayer', 'init', [token])
+    exec(sucess, error, 'BrightcovePlayer', 'setToken', [token])
 };

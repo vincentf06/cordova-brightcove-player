@@ -3,6 +3,7 @@ import BrightcovePlayerSDK
 var token: String? = nil
 var playerView: PlayerViewController? = nil
 var storyboard: UIStoryboard? = nil
+var brightcoveToken: String? = nil
 
 @objc(BrightcovePlayer) class BrightcovePlayer : CDVPlugin {
     @objc(play:)
@@ -11,30 +12,30 @@ var storyboard: UIStoryboard? = nil
         playById(videoId)
     }
     
-    @objc(init:)
+    @objc(setToken:)
     func setToken(_ command: CDVInvokedUrlCommand) {
         var pluginResult: CDVPluginResult? = nil
         
-        let brightcoveToken = command.arguments[0] as? String ?? ""
-        if brightcoveToken.isEmpty == false {
+        brightcoveToken = command.arguments[0] as? String ?? ""
+        if brightcoveToken?.isEmpty == false {
             pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Inited")
         }
         else {
             pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Empty Brightcove token!")
         }
-        commandDelegate.send(pluginResult, callbackId: command.callbackId)
+        commandDelegate.send(pluginResult, callbackId: nil)
     }
-
+    
+    
     func initPlayerView() {
         if playerView == nil {
             storyboard = UIStoryboard(name: "BrightcovePlayer", bundle: nil)
             playerView = storyboard?.instantiateInitialViewController() as? PlayerViewController
-//            playerView.delegate = self
-            playerView?.kViewControllerCatalogToken = token
+//            playerView?.kViewControllerCatalogToken = brightcoveToken
         }
         else {
-            playerView?.kViewControllerCatalogToken = token
-            playerView?.setup()
+//            playerView?.kViewControllerCatalogToken = brightcoveToken
+//            playerView?.setup()
         }
     }
 
@@ -46,7 +47,7 @@ var storyboard: UIStoryboard? = nil
         else {
             if videoId.isEmpty == false {
                 initPlayerView()
-                setVideoId(videoId)
+//                setVideoId(videoId)
 
                 self.viewController.present(playerView!, animated: true) { _ in }
                 pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Playing now with Brightcove ID: \(videoId)")
