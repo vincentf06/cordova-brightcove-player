@@ -3,11 +3,12 @@ import BrightcovePlayerSDK
 
 let kViewControllerCatalogToken = "BCpkADawqM3n0ImwKortQqSZCgJMcyVbb8lJVwt0z16UD0a_h8MpEYcHyKbM8CGOPxBRp0nfSVdfokXBrUu3Sso7Nujv3dnLo0JxC_lNXCl88O7NJ0PR0z2AprnJ_Lwnq7nTcy1GBUrQPr5e"
 let accountId = "4800266849001"
+let kViewControllerVideoID = "5255514387001"
 
 class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
-    let kViewControllerVideoID = "5255514387001"
+    
     
     var kViewControllerPlaylistID: String? = nil
 //    var kViewControllerCatalogToken: String? = nil
@@ -33,27 +34,19 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        
-        
-//        setup()
-//        playbackController?.view.frame = videoContainer.bounds
-//        playbackController?.view.autoresizingMask = [.flexibleWidth, .flexibleHeight]
-        
-
         let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout())
-print(1213121)
+
         playerView?.frame = self.videoContainer.bounds
         playerView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.videoContainer.addSubview(playerView!)
-        
+
         playerView?.playbackController = playbackController
         
         requestContentFromPlaybackService()
     }
     
     func requestContentFromPlaybackService() {
-        playbackService?.findVideo(withVideoID: kViewControllerPlaylistID, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        playbackService?.findVideo(withVideoID: kViewControllerVideoID, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
             if let v = video {
                 self.playbackController.setVideos([v] as NSArray)
@@ -70,7 +63,6 @@ print(1213121)
 //            requestContentFromCatalog()
 //        }
 //    }
-
 //    func requestContentFromCatalog() {
 //        print(111)
 //        playbackService.findVideo(widthVideoID: kViewControllerPlaylistID, parameters: nil) { (video: BCOVVideo, jsonResponse: [AnyHashable: Any], error: Error?) -> Void in
