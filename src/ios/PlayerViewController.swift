@@ -1,25 +1,27 @@
 import UIKit
 import BrightcovePlayerSDK
 
-let kViewControllerCatalogToken = "BCpkADawqM3n0ImwKortQqSZCgJMcyVbb8lJVwt0z16UD0a_h8MpEYcHyKbM8CGOPxBRp0nfSVdfokXBrUu3Sso7Nujv3dnLo0JxC_lNXCl88O7NJ0PR0z2AprnJ_Lwnq7nTcy1GBUrQPr5e"
-let accountId = "4800266849001"
-let kViewControllerVideoID = "5255514387001"
-
 class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
-    let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
+    private let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
     
+    private var playbackController: BCOVPlaybackController
+    private var playbackService: BCOVPlaybackService
+    private var kViewControllerPlaybackServicePolicyKey: String?
+    private var kViewControllerAccountID: String?
+    private var kViewControllerVideoID: String?
     
-    var kViewControllerPlaylistID: String? = nil
-//    var kViewControllerCatalogToken: String? = nil
-    var playbackService = BCOVPlaybackService(accountId: accountId, policyKey: kViewControllerCatalogToken)
-    var playbackController: BCOVPlaybackController
+    //MARK: UIOutlets
     
     @IBOutlet weak var videoContainer: UIView!
-
+    
+    
+    //MARK: Constructor & Destructor
+    
     required init?(coder aDecoder: NSCoder) {
-        playbackController = sharedSDKManager.createPlaybackController()
-        
+        self.playbackController = self.sharedSDKManager.createPlaybackController()
+        self.playbackService = BCOVPlaybackService(accountId: self.kViewControllerAccountID, policyKey: self.kViewControllerPlaybackServicePolicyKey)
+    
         super.init(coder: aDecoder)
         
         playbackController.delegate = self
@@ -39,14 +41,22 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
         playerView?.frame = self.videoContainer.bounds
         playerView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
         self.videoContainer.addSubview(playerView!)
-
         playerView?.playbackController = playbackController
         
         requestContentFromPlaybackService()
     }
     
+    func setAccountIds(policyKey: String, accountId: String) {
+        self.kViewControllerPlaybackServicePolicyKey = policyKey
+        self.kViewControllerAccountID = accountId
+    }
+    
+    func setVideoId(_ videoId: String) {
+        self.kViewControllerVideoID = videoId
+    }
+    
     func requestContentFromPlaybackService() {
-        playbackService?.findVideo(withVideoID: kViewControllerVideoID, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        playbackService.findVideo(withVideoID: self.kViewControllerVideoID, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
             if let v = video {
                 self.playbackController.setVideos([v] as NSArray)
@@ -55,26 +65,6 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
             }
         }
     }
-
-//    func setup() {
-//        if kViewControllerCatalogToken != nil && kViewControllerCatalogToken?.isEmpty == false && kViewControllerPlaylistID != nil && kViewControllerPlaylistID?.isEmpty == false {
-//            playbackService = BCOVPlaybackService(accountId: accountId, policyKey: kViewControllerCatalogToken)
-//
-//            requestContentFromCatalog()
-//        }
-//    }
-//    func requestContentFromCatalog() {
-//        print(111)
-//        playbackService.findVideo(widthVideoID: kViewControllerPlaylistID, parameters: nil) { (video: BCOVVideo, jsonResponse: [AnyHashable: Any], error: Error?) -> Void in
-//
-//            if let v = video {
-//                self.playbackController.setVideos([v] as NSArray)
-//            }
-//            else {
-//                print("BrightcovePluginViewController Debug - Error retrieving video: \(error)")
-//            }
-//        }
-//    }
     
     func playbackController(_ controller: BCOVPlaybackController!, didAdvanceTo session: BCOVPlaybackSession!) {
         print("Advanced to new session")

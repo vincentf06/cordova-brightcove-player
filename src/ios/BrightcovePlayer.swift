@@ -1,66 +1,58 @@
 import BrightcovePlayerSDK
 
-var token: String? = nil
-var playerView: PlayerViewController? = nil
-var storyboard: UIStoryboard? = nil
-var brightcoveToken: String? = nil
-
 @objc(BrightcovePlayer) class BrightcovePlayer : CDVPlugin {
+    
+    private var playerView: PlayerViewController?
+    private var storyboard: UIStoryboard?
+    private var brightcovePolicyKey: String?
+    private var brightcoveAccountId: String?
+    
     @objc(play:)
     func play(_ command: CDVInvokedUrlCommand) {
         let videoId = command.arguments[0] as? String ?? ""
         playById(videoId)
     }
     
-    @objc(setToken:)
-    func setToken(_ command: CDVInvokedUrlCommand) {
+    @objc(initAccount:)
+    func initAccount(_ command: CDVInvokedUrlCommand) {
         var pluginResult: CDVPluginResult? = nil
+        self.brightcovePolicyKey = command.arguments[0] as? String ?? ""
+        self.brightcoveAccountId = command.arguments[1] as? String ?? ""
         
-        brightcoveToken = command.arguments[0] as? String ?? ""
-        if brightcoveToken?.isEmpty == false {
-            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Inited")
+        if self.brightcovePolicyKey?.isEmpty == false && self.brightcoveAccountId?.isEmpty == false {
+            pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Brightcove player initialised")
+        } else {
+            pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Could not initialise Brightcove player")
         }
-        else {
-            pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Empty Brightcove token!")
-        }
+        
         commandDelegate.send(pluginResult, callbackId: nil)
     }
     
     
-    func initPlayerView() {
-        if playerView == nil {
-            storyboard = UIStoryboard(name: "BrightcovePlayer", bundle: nil)
-            playerView = storyboard?.instantiateInitialViewController() as? PlayerViewController
-//            playerView?.kViewControllerCatalogToken = brightcoveToken
-        }
-        else {
-//            playerView?.kViewControllerCatalogToken = brightcoveToken
-//            playerView?.setup()
+    func initPlayerView(_ videoId: String) {
+        if self.playerView == nil {
+            self.storyboard = UIStoryboard(name: "BrightcovePlayer", bundle: nil)
+            self.playerView = self.storyboard?.instantiateInitialViewController() as? PlayerViewController
+            playerView?.setAccountIds(policyKey: brightcovePolicyKey!, accountId: brightcoveAccountId!)
+            playerView?.setVideoId(videoId)
         }
     }
 
     func playById(_ videoId: String) {
         var pluginResult: CDVPluginResult? = nil
-        if token == nil && token?.isEmpty == false {
-            pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Please init the brightcove with token!")
-        }
-        else {
-            if videoId.isEmpty == false {
-                initPlayerView()
-//                setVideoId(videoId)
-
-                self.viewController.present(playerView!, animated: true) { _ in }
-                pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Playing now with Brightcove ID: \(videoId)")
-            }
-            else {
-                pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Empty video ID!")
+        
+        if self.brightcovePolicyKey == nil || self.brightcovePolicyKey?.isEmpty == true {
+            pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Please set up Brightcove IDs")
+        } else {
+            if videoId.isEmpty == true {
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "There is no video ID")
+            } else {
+                initPlayerView(videoId)
+                self.viewController.present(self.playerView!, animated: true) { _ in }
+                pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Playing with video: \(videoId)")
             }
         }
+        
         commandDelegate.send(pluginResult, callbackId: nil)
     }
-
-    func setVideoId(_ videoId: String) {
-        playerView?.kViewControllerPlaylistID = videoId
-    }
-
 }
