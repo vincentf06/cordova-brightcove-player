@@ -29,7 +29,7 @@ import BrightcovePlayerSDK
     }
     
     
-    func initPlayerView(_ videoId: String) {
+    private func initPlayerView(_ videoId: String) {
         if self.playerView == nil {
             self.storyboard = UIStoryboard(name: "BrightcovePlayer", bundle: nil)
             self.playerView = self.storyboard?.instantiateInitialViewController() as? PlayerViewController
@@ -38,7 +38,7 @@ import BrightcovePlayerSDK
         }
     }
 
-    func playById(_ videoId: String) {
+    private func playById(_ videoId: String) {
         var pluginResult: CDVPluginResult? = nil
         
         if self.brightcovePolicyKey == nil || self.brightcovePolicyKey?.isEmpty == true {
