@@ -4,29 +4,22 @@ import BrightcovePlayerSDK
 class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     
     fileprivate let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
-    
     fileprivate var playbackController: BCOVPlaybackController
-    fileprivate var playbackService: BCOVPlaybackService
-    fileprivate var kViewControllerPlaybackServicePolicyKey: String?
-    fileprivate var kViewControllerAccountID: String?
-    fileprivate var kViewControllerVideoID: String?
+    fileprivate var playbackService: BCOVPlaybackService? = nil
+    private var kViewControllerPlaybackServicePolicyKey: String?
+    private var kViewControllerAccountID: String?
+    private var kViewControllerVideoID: String?
     
     //MARK: UIOutlets
     
     @IBOutlet weak var videoContainer: UIView!
     
     
-    //MARK: Constructor & Destructor
-    
     required init?(coder aDecoder: NSCoder) {
         self.playbackController = self.sharedSDKManager.createPlaybackController()
-        
-        print("\n", self.kViewControllerVideoID, "\n", self.kViewControllerPlaybackServicePolicyKey, "\n", self.kViewControllerAccountID)
-        
-        self.playbackService = BCOVPlaybackService(accountId: self.kViewControllerAccountID, policyKey: self.kViewControllerPlaybackServicePolicyKey)
-    
+
         super.init(coder: aDecoder)
-        
+
         playbackController.delegate = self
         playbackController.isAutoAdvance = true
         playbackController.isAutoPlay = true
@@ -38,6 +31,8 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
   
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.playbackService = BCOVPlaybackService(accountId: self.kViewControllerAccountID, policyKey: self.kViewControllerPlaybackServicePolicyKey)
         
         let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout())
 
@@ -59,7 +54,7 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
     fileprivate func requestContentFromPlaybackService() {
-        playbackService.findVideo(withVideoID: self.kViewControllerVideoID!, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
+        playbackService?.findVideo(withVideoID: self.kViewControllerVideoID!, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
             if let v = video {
                 self.playbackController.setVideos([v] as NSArray)
@@ -76,7 +71,7 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     }
     
     internal func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
-        print("Progress: \(progress) seconds")
+        // Nothing to do for now
     }
 
 }

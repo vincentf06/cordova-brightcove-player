@@ -25,7 +25,7 @@ import BrightcovePlayerSDK
             pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Could not initialise Brightcove player")
         }
         
-        commandDelegate.send(pluginResult, callbackId: nil)
+        commandDelegate.send(pluginResult, callbackId: "01")
     }
     
     
@@ -53,6 +53,6 @@ import BrightcovePlayerSDK
             }
         }
         
-        commandDelegate.send(pluginResult, callbackId: nil)
+        commandDelegate.send(pluginResult, callbackId: "02")
     }
 }
