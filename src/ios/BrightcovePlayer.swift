@@ -35,6 +35,9 @@ import BrightcovePlayerSDK
             self.playerView = self.storyboard?.instantiateInitialViewController() as? PlayerViewController
             playerView?.setAccountIds(policyKey: brightcovePolicyKey!, accountId: brightcoveAccountId!)
             playerView?.setVideoId(videoId)
+        } else {
+            playerView?.setVideoId(videoId)
+            playerView?.playFromExistingView()
         }
     }
 

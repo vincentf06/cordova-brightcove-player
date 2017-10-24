@@ -1,28 +1,29 @@
 import UIKit
 import BrightcovePlayerSDK
 
-class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
+class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate {
     
-    fileprivate let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
-    fileprivate var playbackController: BCOVPlaybackController
+    //MARK: Properties
+
     fileprivate var playbackService: BCOVPlaybackService? = nil
+    fileprivate var playbackController: BCOVPlaybackController?
     private var kViewControllerPlaybackServicePolicyKey: String?
     private var kViewControllerAccountID: String?
     private var kViewControllerVideoID: String?
     
-    //MARK: UIOutlets
-    
     @IBOutlet weak var videoContainer: UIView!
+    @IBOutlet weak var closeButton: UIButton!
     
     
     required init?(coder aDecoder: NSCoder) {
-        self.playbackController = self.sharedSDKManager.createPlaybackController()
+        let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
+        self.playbackController = sharedSDKManager.createPlaybackController()
 
         super.init(coder: aDecoder)
 
-        playbackController.delegate = self
-        playbackController.isAutoAdvance = true
-        playbackController.isAutoPlay = true
+        self.playbackController?.delegate = self
+        self.playbackController?.isAutoAdvance = true
+        self.playbackController?.isAutoPlay = true
     }
     
     deinit {
@@ -32,16 +33,12 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.playbackService = BCOVPlaybackService(accountId: self.kViewControllerAccountID, policyKey: self.kViewControllerPlaybackServicePolicyKey)
-        
-        let playerView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout())
-
-        playerView?.frame = self.videoContainer.bounds
-        playerView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
-        self.videoContainer.addSubview(playerView!)
-        playerView?.playbackController = playbackController
-        
+        self.setupVideoView()
         requestContentFromPlaybackService()
+    }
+    
+    override var prefersStatusBarHidden : Bool {
+        return true
     }
     
     internal func setAccountIds(policyKey: String, accountId: String) {
@@ -53,15 +50,45 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
         self.kViewControllerVideoID = videoId
     }
     
+    internal func playFromExistingView() {
+        let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
+        self.playbackController = sharedSDKManager.createPlaybackController()
+        
+        self.playbackController?.delegate = self
+        self.playbackController?.isAutoAdvance = true
+        self.playbackController?.isAutoPlay = true
+        
+        self.setupVideoView()
+        requestContentFromPlaybackService()
+    }
+    
     fileprivate func requestContentFromPlaybackService() {
         playbackService?.findVideo(withVideoID: self.kViewControllerVideoID!, parameters: nil) { (video: BCOVVideo?, jsonResponse: [AnyHashable: Any]?, error: Error?) -> Void in
             
             if let v = video {
-                self.playbackController.setVideos([v] as NSArray)
+                self.playbackController?.setVideos([v] as NSArray)
             } else {
                 print("ViewController Debug - Error retrieving video: \(error?.localizedDescription ?? "unknown error")")
             }
         }
+    }
+    
+    fileprivate func setupVideoView() {
+        self.playbackService = BCOVPlaybackService(accountId: self.kViewControllerAccountID, policyKey: self.kViewControllerPlaybackServicePolicyKey)
+        
+        let videoView = BCOVPUIPlayerView(playbackController: self.playbackController, options: nil, controlsView: BCOVPUIBasicControlView.withVODLayout())
+        
+        videoView?.delegate = self
+        videoView?.frame = self.videoContainer.bounds
+        videoView?.autoresizingMask = [.flexibleHeight, .flexibleWidth]
+        self.videoContainer.addSubview(videoView!)
+        videoView?.playbackController = playbackController
+    }
+    
+    fileprivate func clear() {
+        self.playbackController = nil
+        self.playbackService = nil
+        self.kViewControllerVideoID = nil
     }
     
     //MARK: BCOVPlaybackControllerDelegate Methods
@@ -73,5 +100,13 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate {
     internal func playbackController(_ controller: BCOVPlaybackController!, playbackSession session: BCOVPlaybackSession!, didProgressTo progress: TimeInterval) {
         // Nothing to do for now
     }
-
+    
+    //MARK: Actions
+    
+    @IBAction func dismissPlayerView(_ sender: Any) {
+        self.dismiss(animated: true, completion: {(_: Void) -> Void in
+            self.playbackController?.pause()
+            self.clear()
+        })
+    }
 }
