@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="BYZ-38-t0r">
-    <device id="retina4_7" orientation="portrait">
+    <device id="retina5_9" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
@@ -9,7 +9,7 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--videoContainer-->
+        <!--Player View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="PlayerViewController" customModule="newspaper" customModuleProvider="target" sceneMemberID="viewController">
@@ -18,20 +18,22 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="812"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ggi-L2-Oo0" userLabel="videoContainer">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRZ-Ds-BvB" userLabel="closeButton">
-                                <rect key="frame" x="0.0" y="0.0" width="60" height="27"/>
-                                <state key="normal" title="Zamknij">
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
+                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PRZ-Ds-BvB" userLabel="closeButton">
+                                <rect key="frame" x="0.0" y="0.0" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="26" id="kYA-z8-o1l"/>
+                                    <constraint firstAttribute="width" constant="26" id="tsI-Nh-J3P"/>
+                                </constraints>
+                                <state key="normal" image="back"/>
                                 <connections>
-                                    <action selector="dismissVideoView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="vwv-Ld-tBm"/>
+                                    <action selector="dismissPlayerView:" destination="BYZ-38-t0r" eventType="touchUpInside" id="Hp9-hX-moJ"/>
                                 </connections>
                             </button>
                         </subviews>
@@ -40,7 +42,9 @@
                             <constraint firstAttribute="trailing" secondItem="ggi-L2-Oo0" secondAttribute="trailing" id="8g4-R1-hok"/>
                             <constraint firstItem="ggi-L2-Oo0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="L1z-vn-Y3m"/>
                             <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="ggi-L2-Oo0" secondAttribute="bottom" id="OIH-pY-2K6"/>
+                            <constraint firstItem="PRZ-Ds-BvB" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="15" id="W72-To-1wF"/>
                             <constraint firstItem="ggi-L2-Oo0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="X14-tX-rq8"/>
+                            <constraint firstItem="PRZ-Ds-BvB" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" constant="15" id="tje-fN-Stf"/>
                         </constraints>
                     </view>
                     <connections>
@@ -50,7 +54,11 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="32.799999999999997" y="35.467980295566505"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="back" width="33" height="33"/>
+    </resources>
     <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>
