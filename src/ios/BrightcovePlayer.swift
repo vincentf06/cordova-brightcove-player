@@ -2,10 +2,14 @@ import BrightcovePlayerSDK
 
 @objc(BrightcovePlayer) class BrightcovePlayer : CDVPlugin {
     
+    //MARK: Properties
+    
     private var playerView: PlayerViewController?
     private var storyboard: UIStoryboard?
     private var brightcovePolicyKey: String?
     private var brightcoveAccountId: String?
+    
+    //MARK: Cordova Methods
     
     @objc(play:)
     func play(_ command: CDVInvokedUrlCommand) {
@@ -28,6 +32,7 @@ import BrightcovePlayerSDK
         commandDelegate.send(pluginResult, callbackId: "01")
     }
     
+    //MARK: Private Methods
     
     private func initPlayerView(_ videoId: String) {
         if self.playerView == nil {
