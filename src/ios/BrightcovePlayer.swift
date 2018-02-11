@@ -47,7 +47,7 @@ import BrightcovePlayerSDK
     }
 
     private func playById(_ videoId: String) {
-        var pluginResult: CDVPluginResult? = nil
+        var pluginResult: CDVPluginResult?
         
         if self.brightcovePolicyKey == nil || self.brightcovePolicyKey?.isEmpty == true {
             pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "Please set up Brightcove IDs")

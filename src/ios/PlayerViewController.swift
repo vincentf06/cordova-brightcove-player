@@ -4,7 +4,7 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate, BC
     
     //MARK: Properties
 
-    fileprivate var playbackService: BCOVPlaybackService? = nil
+    fileprivate var playbackService: BCOVPlaybackService?
     fileprivate var playbackController: BCOVPlaybackController?
     fileprivate var videoView: BCOVPUIPlayerView?
     private var kViewControllerPlaybackServicePolicyKey: String?
