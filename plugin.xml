@@ -19,5 +19,15 @@
         <source-file src="src/ios/BrightcovePlayer.swift" />
         <source-file src="src/ios/PlayerViewController.swift" />
         <source-file src="src/ios/BrightcovePlayer.storyboard" />
+        <framework src="src/ios/BrightcovePlayerSDK.framework" custom="true"/>
+        <framework src="AVFoundation.framework" />
+        <framework src="CoreMedia.framework" />
+        <framework src="CoreMotion.framework" />
+        <framework src="GLKit.framework" />
+        <framework src="MediaPlayer.framework" />
+        <framework src="MediaAccessibility.framework" />
+        <framework src="SafariServices.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="WebKit.framework" />
     </platform>
 </plugin>
