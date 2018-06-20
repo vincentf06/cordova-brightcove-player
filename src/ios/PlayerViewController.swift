@@ -3,13 +3,13 @@ import BrightcovePlayerSDK
 class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate, BCOVPUIPlayerViewDelegate {
     
     //MARK: Properties
-
+    
     fileprivate var playbackService: BCOVPlaybackService?
     fileprivate var playbackController: BCOVPlaybackController?
     fileprivate var videoView: BCOVPUIPlayerView?
-    private var kViewControllerPlaybackServicePolicyKey: String?
-    private var kViewControllerAccountID: String?
-    private var kViewControllerVideoID: String?
+    fileprivate var kViewControllerPlaybackServicePolicyKey: String?
+    fileprivate var kViewControllerAccountID: String?
+    fileprivate var kViewControllerVideoID: String?
     
     @IBOutlet weak var videoContainer: UIView!
     @IBOutlet weak var closeButton: UIButton!
@@ -18,9 +18,9 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate, BC
     required init?(coder aDecoder: NSCoder) {
         let sharedSDKManager: BCOVPlayerSDKManager = BCOVPlayerSDKManager.shared()
         self.playbackController = sharedSDKManager.createPlaybackController()
-
+        
         super.init(coder: aDecoder)
-
+        
         self.playbackController?.delegate = self
         self.playbackController?.isAutoAdvance = true
         self.playbackController?.isAutoPlay = true
@@ -42,10 +42,10 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate, BC
     override var prefersStatusBarHidden : Bool {
         return true
     }
-
+    
     //MARK: Internal Methods
     
-    internal func setAccountIds(policyKey: String, accountId: String) {
+    internal func setAccountIds(_ policyKey: String, accountId: String) {
         self.kViewControllerPlaybackServicePolicyKey = policyKey
         self.kViewControllerAccountID = accountId
     }
@@ -65,7 +65,7 @@ class PlayerViewController: UIViewController, BCOVPlaybackControllerDelegate, BC
         self.setupVideoView()
         requestContentFromPlaybackService()
     }
-
+    
     //MARK: Private Methods
     
     fileprivate func requestContentFromPlaybackService() {

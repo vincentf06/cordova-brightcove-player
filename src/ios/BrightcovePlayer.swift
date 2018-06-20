@@ -4,10 +4,10 @@ import BrightcovePlayerSDK
     
     //MARK: Properties
     
-    private var playerView: PlayerViewController?
-    private var storyboard: UIStoryboard?
-    private var brightcovePolicyKey: String?
-    private var brightcoveAccountId: String?
+    fileprivate var playerView: PlayerViewController?
+    fileprivate var storyboard: UIStoryboard?
+    fileprivate var brightcovePolicyKey: String?
+    fileprivate var brightcoveAccountId: String?
     
     //MARK: Cordova Methods
     
@@ -34,19 +34,19 @@ import BrightcovePlayerSDK
     
     //MARK: Private Methods
     
-    private func initPlayerView(_ videoId: String) {
+    fileprivate func initPlayerView(_ videoId: String) {
         if self.playerView == nil {
             self.storyboard = UIStoryboard(name: "BrightcovePlayer", bundle: nil)
             self.playerView = self.storyboard?.instantiateInitialViewController() as? PlayerViewController
-            playerView?.setAccountIds(policyKey: brightcovePolicyKey!, accountId: brightcoveAccountId!)
+            playerView?.setAccountIds(brightcovePolicyKey!, accountId: brightcoveAccountId!)
             playerView?.setVideoId(videoId)
         } else {
             playerView?.setVideoId(videoId)
             playerView?.playFromExistingView()
         }
     }
-
-    private func playById(_ videoId: String) {
+    
+    fileprivate func playById(_ videoId: String) {
         var pluginResult: CDVPluginResult?
         
         if self.brightcovePolicyKey == nil || self.brightcovePolicyKey?.isEmpty == true {
