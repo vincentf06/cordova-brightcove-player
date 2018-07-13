@@ -9,16 +9,20 @@
     <js-module src="www/videoPlayer.js" name="videoPlayer">
         <clobbers target="videoPlayer" />
     </js-module>
+
     <platform name="ios">
         <config-file target="config.xml" parent="/*">
             <feature name="BrightcovePlayer">
                 <param name="ios-package" value="BrightcovePlayer" onload="true"/>
             </feature>
         </config-file>
+
         <header-file src="src/ios/bridging-header.h" />
+
         <source-file src="src/ios/BrightcovePlayer.swift" />
         <source-file src="src/ios/PlayerViewController.swift" />
         <source-file src="src/ios/BrightcovePlayer.storyboard" />
+
         <framework src="src/ios/BrightcovePlayerSDK.framework" custom="true"/>
         <framework src="AVFoundation.framework" />
         <framework src="CoreMedia.framework" />
@@ -29,5 +33,12 @@
         <framework src="SafariServices.framework" />
         <framework src="SystemConfiguration.framework" />
         <framework src="WebKit.framework" />
+    </platform>
+
+    <platform name="android">
+        <source-file src="src/android/BrightcovePlayer.java" target-dir="src/com/brightcove/player" />
+        <source-file src="src/android/BrightcoveActivity.java" target-dir="src/com/brightcove/player" />
+
+        <resource-file src="src/android/lib/android-sdk-6.2.2.aar" target="aar/com/brightcove/sdk" />
     </platform>
 </plugin>

@@ -1,0 +1,21 @@
+apply plugin: 'maven'
+
+repositories{
+  jcenter()
+  flatDir{
+      dirs 'lib'
+  }
+  maven { url 'dependencies' }
+  mavenCentral()
+}
+
+dependencies {
+   compile(name:'android-sdk-6.2.2', ext:'aar')
+}
+
+android {
+  packagingOptions {
+    exclude 'META-INF/NOTICE'
+    exclude 'META-INF/LICENSE'
+  }
+}
