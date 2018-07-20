@@ -36,9 +36,30 @@
     </platform>
 
     <platform name="android">
+        <config-file target="res/xml/config.xml" parent="/*">
+            <feature name="BrightcovePlayer">
+                <param name="android-package" value="com.brightcove.player.BrightcovePlayer" />
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="application">
+            <meta-data
+                android:name="com.google.android.gms.version"
+                android:value="@integer/google_play_services_version" />
+            <activity
+                android:name="com.brightcove.player.BrightcoveActivity"
+                android:configChanges="orientation|screenSize"
+                android:launchMode="singleTask"
+                android:label="@string/app_name" >
+            </activity>
+        </config-file>
+
         <source-file src="src/android/BrightcovePlayer.java" target-dir="src/com/brightcove/player" />
         <source-file src="src/android/BrightcoveActivity.java" target-dir="src/com/brightcove/player" />
+        <source-file src="src/android/player.xml" target-dir="res/layout/" />
 
-        <resource-file src="src/android/lib/android-sdk-6.2.2.aar" target="aar/com/brightcove/sdk" />
+        <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
+        <resource-file src="src/android/lib/android-sdk-6.2.3.aar" target="aar/com/brightcove/sdk/android-sdk-6.2.3.aar" />
     </platform>
 </plugin>
