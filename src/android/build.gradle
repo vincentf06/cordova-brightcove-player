@@ -3,7 +3,7 @@ apply plugin: 'maven'
 repositories {
   jcenter()
   flatDir{
-      dirs 'aar/com/brightcove/sdk/'
+      dirs 'aar/com/brightcove/player/'
   }
   maven { url 'dependencies' }
   mavenCentral()
@@ -12,6 +12,8 @@ repositories {
 dependencies {
    compile fileTree(dir: 'libs', include: ['*.jar'])
    compile(name:'android-sdk-6.2.3', ext:'aar')
+   compile(name:'android-exoplayer2-player-6.2.3', ext:'aar')
+   compile(name:'android-ima-plugin-6.2.3', ext:'aar')
 }
 
 android {

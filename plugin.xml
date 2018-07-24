@@ -44,9 +44,6 @@
         </config-file>
 
         <config-file target="AndroidManifest.xml" parent="application">
-            <meta-data
-                android:name="com.google.android.gms.version"
-                android:value="@integer/google_play_services_version" />
             <activity
                 android:name="com.brightcove.player.BrightcoveActivity"
                 android:configChanges="orientation|screenSize"
@@ -60,6 +57,12 @@
         <source-file src="src/android/player.xml" target-dir="res/layout/" />
 
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
-        <resource-file src="src/android/lib/android-sdk-6.2.3.aar" target="aar/com/brightcove/sdk/android-sdk-6.2.3.aar" />
+
+        <resource-file src="src/android/lib/android-sdk-6.2.3.aar" target="aar/com/brightcove/player/android-sdk-6.2.3.aar" />
+
+        <resource-file src="src/android/lib/android-exoplayer2-player-6.2.3.aar" target="aar/com/brightcove/player/android-exoplayer2-player-6.2.3.aar" />
+
+        <resource-file src="src/android/lib/android-ima-plugin-6.2.3.aar" target="aar/com/brightcove/player/android-ima-plugin-6.2.3.aar" />
+
     </platform>
 </plugin>
