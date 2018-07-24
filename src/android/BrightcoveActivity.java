@@ -16,8 +16,6 @@ public class BrightcoveActivity extends BrightcovePlayer {
     private static final String BRIGHTCOVE_ACTIVITY = "player";
     private static final String BRIGHTCOVE_VIEW = "brightcove_video_view";
 
-    static final String PLAYER_EVENT = "PLAYER_EVENT";
-
     private String brightcovePolicyKey = null;
     private String brightcoveAccountId = null;
     private String videoId = null;
