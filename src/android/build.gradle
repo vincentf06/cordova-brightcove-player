@@ -14,5 +14,4 @@ dependencies {
    compile(name:'android-sdk-6.2.3', ext:'aar')
 }
 
-android {
-}
+android { }
