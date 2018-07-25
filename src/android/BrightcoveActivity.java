@@ -13,8 +13,8 @@ import com.brightcove.player.view.BrightcoveVideoView;
 
 public class BrightcoveActivity extends BrightcovePlayer {
 
-    private static final String BRIGHTCOVE_ACTIVITY = "player";
-    private static final String BRIGHTCOVE_VIEW = "brightcove_video_view";
+    private static final String BRIGHTCOVE_ACTIVITY_NAME = "player";
+    private static final String BRIGHTCOVE_VIEW_NAME = "brightcove_video_view";
 
     private String brightcovePolicyKey = null;
     private String brightcoveAccountId = null;
@@ -22,8 +22,8 @@ public class BrightcoveActivity extends BrightcovePlayer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setContentView(this.getIdFromResources(BRIGHTCOVE_ACTIVITY, "layout"));
-        brightcoveVideoView = (BrightcoveVideoView) findViewById(this.getIdFromResources(BRIGHTCOVE_VIEW, "id"));
+        setContentView(this.getIdFromResources(BRIGHTCOVE_ACTIVITY_NAME, "layout"));
+        brightcoveVideoView = (BrightcoveVideoView) findViewById(this.getIdFromResources(BRIGHTCOVE_VIEW_NAME, "id"));
 
         super.onCreate(savedInstanceState);
 
@@ -43,15 +43,13 @@ public class BrightcoveActivity extends BrightcovePlayer {
         super.onDestroy();
     }
 
-    private int getIdFromResources(String what, String where){
+    private int getIdFromResources(String activityName, String location){
         String package_name = getApplication().getPackageName();
         Resources resources = getApplication().getResources();
-        return resources.getIdentifier(what, where, package_name);
+        return resources.getIdentifier(activityName, location, package_name);
     }
 
     private void playById(String policyKey, String accountId, String id){
-
-        this.fullScreen();
         EventEmitter eventEmitter = brightcoveVideoView.getEventEmitter();
         Catalog catalog = new Catalog(eventEmitter, brightcoveAccountId, brightcovePolicyKey);
         catalog.findVideoByID(videoId, new VideoListener() {
