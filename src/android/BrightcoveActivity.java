@@ -22,6 +22,8 @@ public class BrightcoveActivity extends BrightcovePlayer {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        // When extending the BrightcovePlayer, we must assign the BrightcoveVideoView before
+        // entering the superclass. 
         setContentView(this.getIdFromResources(BRIGHTCOVE_ACTIVITY_NAME, "layout"));
         brightcoveVideoView = (BrightcoveVideoView) findViewById(this.getIdFromResources(BRIGHTCOVE_VIEW_NAME, "id"));
 
@@ -43,13 +45,13 @@ public class BrightcoveActivity extends BrightcovePlayer {
         super.onDestroy();
     }
 
-    private int getIdFromResources(String activityName, String location){
+    private int getIdFromResources(String activityName, String location) {
         String package_name = getApplication().getPackageName();
         Resources resources = getApplication().getResources();
         return resources.getIdentifier(activityName, location, package_name);
     }
 
-    private void playById(String policyKey, String accountId, String id){
+    private void playById(String policyKey, String accountId, String id) {
         EventEmitter eventEmitter = brightcoveVideoView.getEventEmitter();
         Catalog catalog = new Catalog(eventEmitter, brightcoveAccountId, brightcovePolicyKey);
         catalog.findVideoByID(videoId, new VideoListener() {

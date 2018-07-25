@@ -41,12 +41,12 @@ public class BrightcovePlayer extends CordovaPlugin {
     }
 
     private void play(String id, CallbackContext callbackContext) {
-        if (this.brightcovePolicyKey == null || this.brightcoveAccountId == null){
+        if (this.brightcovePolicyKey == null || this.brightcoveAccountId == null) {
             callbackContext.error("Please init your account first");
             return;
         }
 
-        if (id != null && id.length() > 0){
+        if (id != null && id.length() > 0) {
             Context context = this.cordova.getActivity().getApplicationContext();
             Intent intent = new Intent(context, BrightcoveActivity.class);
             intent.putExtra("video-id", id);
@@ -55,17 +55,17 @@ public class BrightcovePlayer extends CordovaPlugin {
             context.startActivity(intent);
 
             callbackContext.success("Playing now with Brightcove ID: " + id);
-        } else{
+        } else {
             callbackContext.error("Empty video ID!");
         }
     }
 
     private void initAccount(String policyKey, String accountId, CallbackContext callbackContext) {
-        if (policyKey != null && policyKey.length() > 0 && accountId != null && accountId.length() > 0 ){
+        if (policyKey != null && policyKey.length() > 0 && accountId != null && accountId.length() > 0 ) {
             this.brightcovePolicyKey = policyKey;
             this.brightcoveAccountId = accountId;
             callbackContext.success("Inited");
-        } else{
+        } else {
             callbackContext.error("Failed, please check your policyKey and accountId");
         }
     }
