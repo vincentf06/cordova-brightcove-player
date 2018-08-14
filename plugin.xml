@@ -21,7 +21,9 @@
 
         <source-file src="src/ios/BrightcovePlayer.swift" />
         <source-file src="src/ios/PlayerViewController.swift" />
-        <source-file src="src/ios/BrightcovePlayer.storyboard" />
+
+        <resource-file src="src/ios/BrightcovePlayer.storyboard" />
+        <resource-file src="src/ios/back.png" />
 
         <framework src="src/ios/BrightcovePlayerSDK.framework" custom="true"/>
         <framework src="AVFoundation.framework" />
