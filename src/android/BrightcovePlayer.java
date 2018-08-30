@@ -52,6 +52,7 @@ public class BrightcovePlayer extends CordovaPlugin {
             intent.putExtra("video-id", id);
             intent.putExtra("brightcove-policy-key", this.brightcovePolicyKey);
             intent.putExtra("brightcove-account-id", this.brightcoveAccountId);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 
             callbackContext.success("Playing now with Brightcove ID: " + id);
