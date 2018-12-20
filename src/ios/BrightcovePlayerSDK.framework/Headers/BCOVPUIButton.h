@@ -2,7 +2,7 @@
 // BCOVPUIButton.h
 // BrightcovePlayerSDK
 //
-// Copyright (c) 2017 Brightcove, Inc. All rights reserved.
+// Copyright (c) 2018 Brightcove, Inc. All rights reserved.
 // License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
@@ -12,7 +12,7 @@
 
 
 /**
- * A subsclass of UIButton that contains two titles,
+ * A subclass of UIButton that contains two titles,
  * a primary and a secondary title.
  * This is used for buttons that change titles when they
  * toggle between two different states, like the play/pause button.

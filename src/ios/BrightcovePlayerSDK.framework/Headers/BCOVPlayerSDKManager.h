@@ -2,7 +2,7 @@
 // BCOVPlayerSDKManager.h
 // BrightcovePlayerSDK
 //
-// Copyright (c) 2017 Brightcove, Inc. All rights reserved.
+// Copyright (c) 2018 Brightcove, Inc. All rights reserved.
 // License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
@@ -23,6 +23,13 @@
  * of other objects from the Player SDK ecosystem.
  */
 @interface BCOVPlayerSDKManager : NSObject
+
+/**
+ *  Returns the SDK version.
+ *
+ *  @return The SDK version
+ */
++ (NSString *)version;
 
 /**
  * sessionID is a unique identifier associated with this instance

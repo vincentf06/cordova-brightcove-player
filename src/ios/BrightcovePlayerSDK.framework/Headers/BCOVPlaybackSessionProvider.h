@@ -2,7 +2,7 @@
 // BCOVPlaybackSessionProvider.h
 // BrightcovePlayerSDK
 //
-// Copyright (c) 2017 Brightcove, Inc. All rights reserved.
+// Copyright (c) 2018 Brightcove, Inc. All rights reserved.
 // License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
@@ -17,6 +17,7 @@
 @protocol BCOVPlaybackSessionProvider <NSObject>
 
 /**
+ * @deprecated Do not use.
  * Returns a series of id<BCOVPlaybackSession> objects that correspond to the
  * specified videos. The first playback session will be sent as soon as it
  * becomes available. Each subsequent playback session will be sent after its
@@ -28,6 +29,6 @@
  * @return The BCOVPlaybackSession objects that correspond to the specified
  * videos.
  */
-- (id)playbackSessionsForVideos:(id<NSFastEnumeration>)videos;
+- (id)playbackSessionsForVideos:(id<NSFastEnumeration>)videos __attribute__((deprecated("Do not use")));
 
 @end

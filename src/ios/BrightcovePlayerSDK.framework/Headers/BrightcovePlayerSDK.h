@@ -2,7 +2,7 @@
 // BrightcovePlayerSDK.h
 // BrightcovePlayerSDK
 //
-// Copyright (c) 2017 Brightcove, Inc. All rights reserved.
+// Copyright (c) 2018 Brightcove, Inc. All rights reserved.
 // License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
@@ -12,15 +12,13 @@
 //! Project version string for BrightcovePlayerSDK.
 FOUNDATION_EXPORT const unsigned char BrightcovePlayerSDKVersionString[];
 
-// Catalog
-#import <BrightcovePlayerSDK/BCOVCatalogConstants.h>
-#import <BrightcovePlayerSDK/BCOVCatalogService.h>
-#import <BrightcovePlayerSDK/BCOVMediaRequestFactory.h>
-#import <BrightcovePlayerSDK/NSDictionary+BCOVURLSupport.h>
+// Open Source Software attributions
+#import <BrightcovePlayerSDK/BCOVAttributions.h>
 
 // Playback API
 #import <BrightcovePlayerSDK/BCOVPlaybackService.h>
 #import <BrightcovePlayerSDK/BCOVPlaybackServiceRequestFactory.h>
+#import <BrightcovePlayerSDK/NSDictionary+BCOVURLSupport.h>
 
 // Management
 #import <BrightcovePlayerSDK/BCOVPlayerSDKManager.h>
@@ -62,4 +60,14 @@ FOUNDATION_EXPORT const unsigned char BrightcovePlayerSDKVersionString[];
 
 // Offline Video Management
 #import <BrightcovePlayerSDK/BCOVOfflineVideoManager.h>
+#endif
+
+// TV UI
+#if TARGET_OS_TV
+#import <BrightcovePlayerSDK/BCOVTVCommon.h>
+#import <BrightcovePlayerSDK/BCOVTVControlsView.h>
+#import <BrightcovePlayerSDK/BCOVTVPlayerView.h>
+#import <BrightcovePlayerSDK/BCOVTVProgressView.h>
+#import <BrightcovePlayerSDK/BCOVTVSettingsView.h>
+#import <BrightcovePlayerSDK/BCOVTVTabBarItemView.h>
 #endif

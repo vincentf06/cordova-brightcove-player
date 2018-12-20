@@ -2,7 +2,7 @@
 // BCOVPUIBasicControlView.h
 // BrightcovePlayerSDK
 //
-// Copyright (c) 2017 Brightcove, Inc. All rights reserved.
+// Copyright (c) 2018 Brightcove, Inc. All rights reserved.
 // License: https://accounts.brightcove.com/en/terms-and-conditions
 //
 
@@ -155,7 +155,7 @@ extern CGFloat kBCOVPUILayoutUseDefaultValue;
 @property (nonatomic, weak, readonly) BCOVPUISlider *progressSlider;
 
 /** The closed caption button */
-@property (nonatomic, weak, readonly) UIButton *closedCaptionButton;
+@property (nonatomic, weak, readonly) BCOVPUIButton *closedCaptionButton;
 
 /** The screen mode (fullscreen) button */
 @property (nonatomic, weak, readonly) BCOVPUIButton *screenModeButton;
