@@ -1,0 +1,11 @@
+{
+    "name": "cordova-brightcove-player",
+    "version": "0.1.0",
+    "author": "",
+    "engines": [
+    {
+      "name": "cordova",
+      "version": ">=9.0.0"
+    }
+  ]
+}

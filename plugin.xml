@@ -60,6 +60,6 @@
 
         <framework src="src/android/build.gradle" custom="true" type="gradleReference" />
 
-        <resource-file src="src/android/lib/android-sdk-5.2.0.aar" target="libs/android-sdk-5.2.0.aar" />
+        <resource-file src="src/android/lib/android-sdk-5.2.0.aar" target="../../libs/android-sdk-5.2.0.aar" />
     </platform>
 </plugin>

@@ -1,17 +1,12 @@
-apply plugin: 'maven'
-
 repositories {
-  jcenter()
-  flatDir{
-      dirs 'libs'
-  }
-  maven { url 'dependencies' }
-  mavenCentral()
+    google()
+    jcenter()
+    flatDir {
+        dirs '../app/libs'
+    }
 }
 
 dependencies {
-   compile fileTree(dir: 'libs', include: ['*.jar'])
-   compile(name:'android-sdk-5.2.0', ext:'aar')
+   api fileTree(dir: 'libs', include: ['*.jar, *.aar'])
+   api(name:'android-sdk-5.2.0', ext:'aar')
 }
-
-android { }
