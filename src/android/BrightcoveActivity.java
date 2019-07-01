@@ -33,8 +33,6 @@ public class BrightcoveActivity extends BrightcovePlayer {
         String videoId = intent.getStringExtra("video-id");
 
         playById(brightcovePolicyKey, brightcoveAccountId, videoId);
-
-        return;
     }
 
     @Override
@@ -60,8 +58,8 @@ public class BrightcoveActivity extends BrightcovePlayer {
             }
 
             @Override
-            public void onError(String s) {
-                throw new RuntimeException(s);
+            public void onError(String error) {
+                Log.e("BrightcoveActivity", error);
             }
         });
     }
