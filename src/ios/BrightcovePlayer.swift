@@ -56,7 +56,7 @@ import BrightcovePlayerSDK
                 pluginResult = CDVPluginResult(status: CDVCommandStatus_ERROR, messageAs: "There is no video ID")
             } else {
                 initPlayerView(videoId)
-                self.viewController.present(self.playerView!, animated: true) { _ in }
+                self.viewController.present(self.playerView!, animated: true)
                 pluginResult = CDVPluginResult(status: CDVCommandStatus_OK, messageAs: "Playing with video: \(videoId)")
             }
         }
