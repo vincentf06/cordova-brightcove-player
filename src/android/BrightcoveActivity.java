@@ -27,7 +27,6 @@ public class BrightcoveActivity extends BrightcovePlayer {
         super.onCreate(savedInstanceState);
 
         Intent intent = getIntent();
-
         String brightcovePolicyKey = intent.getStringExtra("brightcove-policy-key");
         String brightcoveAccountId = intent.getStringExtra("brightcove-account-id");
         String videoId = intent.getStringExtra("video-id");
@@ -41,9 +40,9 @@ public class BrightcoveActivity extends BrightcovePlayer {
     }
 
     private int getIdFromResources(String activityName, String location) {
-        String package_name = getApplication().getPackageName();
+        String packageName = getApplication().getPackageName();
         Resources resources = getApplication().getResources();
-        return resources.getIdentifier(activityName, location, package_name);
+        return resources.getIdentifier(activityName, location, packageName);
     }
 
     private void playById(String policyKey, String accountId, String videoId) {

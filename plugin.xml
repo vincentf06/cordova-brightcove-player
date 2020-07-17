@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <plugin xmlns="http://apache.org/cordova/ns/plugins/1.0"
-        id="cordova-brightcove-player" version="0.1.0">
+        id="cordova-brightcove-player" version="0.2.0">
     <name>CordovaBrightcovePlayer</name>
     <description>Brightcove video player cordova plugin</description>
     <author>Vincent Fu</author>

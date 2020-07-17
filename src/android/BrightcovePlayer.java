@@ -35,27 +35,32 @@ public class BrightcovePlayer extends CordovaPlugin {
             String accountId = args.getString(1);
             this.initAccount(policyKey, accountId, callbackContext);
             return true;
+        } else if(action.equals("switchAccount")) {
+            String policyKey = args.getString(0);
+            String accountId = args.getString(1);
+            this.switchAccount(policyKey, accountId, callbackContext);
+            return true;
         }
 
         return false;
     }
 
-    private void play(String id, CallbackContext callbackContext) {
+    private void play(String videoId, CallbackContext callbackContext) {
         if (this.brightcovePolicyKey == null || this.brightcoveAccountId == null) {
             callbackContext.error("Please init your account first");
             return;
         }
 
-        if (id != null && id.length() > 0) {
+        if (videoId != null && videoId.length() > 0) {
             Context context = this.cordova.getActivity().getApplicationContext();
             Intent intent = new Intent(context, BrightcoveActivity.class);
-            intent.putExtra("video-id", id);
+            intent.putExtra("video-id", videoId);
             intent.putExtra("brightcove-policy-key", this.brightcovePolicyKey);
             intent.putExtra("brightcove-account-id", this.brightcoveAccountId);
             intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             context.startActivity(intent);
 
-            callbackContext.success("Playing now with Brightcove ID: " + id);
+            callbackContext.success("Playing now with Brightcove ID: " + videoId);
         } else {
             callbackContext.error("Empty video ID!");
         }
@@ -65,9 +70,13 @@ public class BrightcovePlayer extends CordovaPlugin {
         if (policyKey != null && policyKey.length() > 0 && accountId != null && accountId.length() > 0 ) {
             this.brightcovePolicyKey = policyKey;
             this.brightcoveAccountId = accountId;
-            callbackContext.success("Inited");
+            callbackContext.success("Brightcove account was initialised");
         } else {
-            callbackContext.error("Failed, please check your policyKey and accountId");
+            callbackContext.error("Brightcove policy key or account id is not valid");
         }
+    }
+
+    private void switchAccount(String policyKey, String accountId, CallbackContext callbackContext) {
+        this.initAccount(policyKey, accountId, callbackContext);
     }
 }
