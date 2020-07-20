@@ -25,7 +25,7 @@
         <resource-file src="src/ios/BrightcovePlayer.storyboard" />
         <resource-file src="src/ios/back.png" />
 
-        <framework src="src/ios/BrightcovePlayerSDK.framework" custom="true"/>
+        <framework src="src/ios/BrightcovePlayerSDK.framework" embed="true" custom="true"/>
         <framework src="AVFoundation.framework" />
         <framework src="CoreMedia.framework" />
         <framework src="CoreMotion.framework" />
